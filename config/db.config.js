@@ -1,14 +1,15 @@
-const mysql = require("mysql");
-const database_connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "node_mysql_crud_api_db",
-});
+const mongoose = require("mongoose");
 
-database_connection.connect(function (error) {
-  if (error) throw error;
-  console.log("Database Connected Successfully!");
-});
+const mongoConnect = async (url) => {
+  try {
+    const conn = await mongoose.connect(url);
+    console.log("Connected to MongoDB");
+  } catch (error) {
+    console.log(
+      `URL or MongoDB Configuration Error while connecting....! : ${error}`
+    );
+    process.exit(1);
+  }
+};
 
-module.exports = database_connection;
+module.exports = mongoConnect;
